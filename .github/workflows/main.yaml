@@ -27,7 +27,11 @@ jobs:
       - name: Start webapp
         run: docker-compose up -d
         working-directory: ./webapp
-      - run: sleep 10
+      - run: sleep 30
+      - run: docker-compose ps
+        working-directory: ./webapp
+      - run: docker-compose logs webapp
+        working-directory: ./webapp
       - name: Run benchmark
         run: |
           ./bin/benchmarker -target "127.0.0.1:9292" -exit-status
