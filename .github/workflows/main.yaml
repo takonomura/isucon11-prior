@@ -1,0 +1,29 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - 'ghaction'
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.17.1
+      - name: Build benchmarker
+        run: make build
+        working-directory: ./benchmarker
+      - name: Build Docker images
+        run: docker-compose build
+        working-directory: ./webapp
+      - name: Start webapp
+        run: docker-compose up -d
+        working-directory: ./webapp
+      - run: sleep 10
+      - name: Run benchmark
+        run: |
+          ./bin/benchmarker -target "127.0.0.1:9292" -exit-status
+        working-directory: ./benchmarker
