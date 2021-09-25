@@ -36,3 +36,6 @@ jobs:
         run: |
           ./bin/benchmarker -target "127.0.0.1:9292" -exit-status
         working-directory: ./benchmarker
+      - run: docker-compose logs webapp
+        if: ${{ failure() }}
+        working-directory: ./webapp
