@@ -9,9 +9,14 @@ services:
       MYSQL_PASSWORD: isucon
     volumes:
       - ./sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
   webapp:
     build: golang
     network_mode: host
+    depends_on:
+      mysql:
+        condition: service_healthy
   nginx:
     image: nginx
     network_mode: host
