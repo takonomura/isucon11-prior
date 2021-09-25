@@ -13,6 +13,6 @@ FROM scratch
 WORKDIR /webapp
 
 COPY --from=build /webapp/webapp ./webapp
-COPY public ./public
+COPY public /public
 
 ENTRYPOINT ["/webapp/webapp"]
