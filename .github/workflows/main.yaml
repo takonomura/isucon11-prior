@@ -30,11 +30,9 @@ jobs:
       - run: sleep 30
       - run: docker-compose ps
         working-directory: ./webapp
-      - run: docker-compose logs webapp
-        working-directory: ./webapp
       - name: Run benchmark
         run: |
-          ./bin/benchmarker -target "127.0.0.1:9292" -exit-status
+          ./bin/benchmarker -target "127.0.0.1:80" -exit-status
         working-directory: ./benchmarker
       - run: docker-compose logs webapp
         if: ${{ failure() }}
