@@ -21,4 +21,4 @@ services:
     image: nginx
     network_mode: host
     volumes:
-      - ./nginx/default:/etc/nginx/sites-enabled/default:ro
+      - ./nginx/default:/etc/nginx/conf.d/default.conf:ro
