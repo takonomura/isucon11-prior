@@ -37,5 +37,5 @@ jobs:
       - run: docker-compose logs webapp
         if: ${{ failure() }}
         working-directory: ./webapp
-      - run: docker-compose exec nginx cat /var/log/nginx/access2.log | tail
+      - run: docker-compose exec -T nginx cat /var/log/nginx/access2.log | tail
         working-directory: ./webapp
