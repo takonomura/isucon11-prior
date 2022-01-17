@@ -40,9 +40,4 @@ jobs:
         run: sleep 5
 
       - name: Run benchmark
-        run: |
-          ./bin/benchmarker -target "127.0.0.1:80" -exit-status
-        working-directory: ./benchmarker
-
-      - run: docker-compose exec -T nginx cat /var/log/nginx/access2.log | ./alp json --reverse --output=count,2xx,3xx,4xx,5xx,method,uri,min,p99,max --matching-groups=/api/schedules/[0-9A-Z]{26}
-        working-directory: ./webapp
+        run: ./run_bench.sh
