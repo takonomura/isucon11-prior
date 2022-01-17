@@ -39,16 +39,10 @@ jobs:
       - name: Wait for ready
         run: sleep 5
 
-      - run: docker-compose ps
-        working-directory: ./webapp
-
       - name: Run benchmark
         run: |
           ./bin/benchmarker -target "127.0.0.1:80" -exit-status
         working-directory: ./benchmarker
 
-      - run: docker-compose logs webapp
-        if: ${{ failure() }}
-        working-directory: ./webapp
-      - run: docker-compose exec -T nginx cat /var/log/nginx/access2.log | ./alp json
+      - run: docker-compose exec -T nginx cat /var/log/nginx/access2.log | ./alp json --reverse --output=count,2xx,3xx,4xx,5xx,method,uri,min,p50,p99,max --matching-groups=/api/schedules/[0-9A-Z]{26}
         working-directory: ./webapp
