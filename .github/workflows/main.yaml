@@ -37,3 +37,5 @@ jobs:
       - run: docker-compose logs webapp
         if: ${{ failure() }}
         working-directory: ./webapp
+      - run: docker-compose logs nginx 2>/dev/null | head
+        working-directory: ./webapp
